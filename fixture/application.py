@@ -1,6 +1,7 @@
 
 from selenium import webdriver
 from fixture.session import SessionHelper
+from fixture.project import ProjectHelper
 
 
 class Application:
@@ -16,6 +17,7 @@ class Application:
             raise ValueError("Unrecognized browser %s" % browser)
         self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
+        self.session = ProjectHelper(self)
         self.base_url = base_url
 
     def is_valid(self):
@@ -30,6 +32,9 @@ class Application:
         wd = self.wd
         wd.get(self.base_url)
 
+    def open_project_home_page(self):
+        wd = self.wd
+        wd.get("http://localhost/mantisbt-1.2.20/manage_proj_page.php")
 
     def is_element_present(self, how, what):
         try:
