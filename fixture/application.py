@@ -1,4 +1,3 @@
-
 from selenium import webdriver
 from fixture.session import SessionHelper
 from fixture.project import ProjectHelper
@@ -14,10 +13,9 @@ class Application:
         elif browser == "ie":
             self.wd = webdriver.Ie()
         else:
-            raise ValueError("Unrecognized browser %s" % browser)
-        self.wd.implicitly_wait(5)
+            raise ValueError("Unrecognized type of browser - %s" % browser)
         self.session = SessionHelper(self)
-        self.session = ProjectHelper(self)
+        self.project = ProjectHelper(self)
         self.base_url = base_url
 
     def is_valid(self):
@@ -27,28 +25,15 @@ class Application:
         except:
             return False
 
-
     def open_home_page(self):
         wd = self.wd
         wd.get(self.base_url)
 
-    def open_project_home_page(self):
+    def open_project_page(self):
         wd = self.wd
-        wd.get("http://localhost/mantisbt-1.2.20/manage_proj_page.php")
+        if not (wd.current_url.endswith("/manage_proj_page.php") and len(
+                wd.find_elements_by_name("manage_proj_create_page_token")) > 0):
+            wd.get('http://localhost/mantisbt-1.2.20/manage_proj_page.php')
 
-    def is_element_present(self, how, what):
-        try:
-            self.wd.find_element(by=how, value=what)
-        except NoSuchElementException as e:
-            return False
-        return True
-
-    def is_alert_present(self):
-        try:
-            self.wd.switch_to_alert()
-        except NoAlertPresentException as e:
-            return False
-        return True
-
-    def destroy(self):
+    def stop(self):
         self.wd.quit()

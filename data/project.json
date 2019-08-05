@@ -1,7 +1,10 @@
 [
   {
     "py/object": "model.project.Project",
-    "description": "projectdescriptionG^",
-    "name": "projectnamebsm"
+    "description": "descriptionproject",
+    "id": null,
+    "name": "projectname",
+    "status": null,
+    "view_state": null
   }
 ]
