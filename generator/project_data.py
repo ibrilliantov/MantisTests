@@ -8,7 +8,7 @@ import sys
 
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of contacts", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of projects", "file"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
@@ -23,12 +23,12 @@ for o, a in opts:
         f = a
 
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + string.punctuation + " "*10
+    symbols = string.digits
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
-testdata = [Project(name="", description="")] + [
-    Project(name=random_string("projectname", 10), description=random_string("projectdescription", 20))
+testdata = [
+    Project(name=random_string("projectname", 5), description=random_string("projectdescription", 5))
     for i in range(n)
 ]
 

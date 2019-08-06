@@ -1,4 +1,4 @@
-
+import time
 
 class ProjectHelper:
 
@@ -25,10 +25,13 @@ class ProjectHelper:
         self.app.open_project_page()
 
 
-    def del_project(self, id):
+    def del_project(self, name):
         wd = self.app.wd
         self.app.open_project_page()
-        wd.find_element_by_xpath("//a[contains(@href,'manage_proj_edit_page.php?project_id=%s')]" % id).click()
+        wd.find_element_by_link_text(name).click()
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         self.app.open_project_page()
+
+
+
